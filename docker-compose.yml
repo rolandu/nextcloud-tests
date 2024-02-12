@@ -1,0 +1,7 @@
+version: '3'
+services:
+  app-test:
+    build: .
+    volumes:
+      - ./config:/app/config  # Bind mount the config directory to /app/config inside the container
+    command: pytest  # You can put custom pytest commands here, e.g. "pytest -v"
