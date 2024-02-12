@@ -7,7 +7,7 @@ COPY . /app/
 # Set working directory
 WORKDIR /app
 
-# Install the specific Python version and virtualenv via pyenv
+# Install requirements
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Your application's default run command

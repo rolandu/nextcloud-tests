@@ -32,11 +32,27 @@ You will need to test other things manually or using other scripts.
 
 - Nextcloud (Version >20)
 - Python 3.8.5 (or compatible)
+- Python packages according to requirements.txt
+- pyenv + virtualenv (recommended)
 
-### Install requirements
+### Pyenv (optional)
+
+This step is optional if you wish to use pyenv + virtualenv.
+
+Install pyenv, then navigate to this directory of the tool and run:
 
 ```commandline
 pyenv install
+pyenv virtualenv nextcloud-tests
+pyenv activate 
+
+# Always:
+pip install -r requirements.txt
+```
+
+### Install python requirements
+
+```commandline
 pip install -r requirements.txt
 ```
 
@@ -47,6 +63,16 @@ manually upload `test_data/test-textfile.txt` to your Nextcloud test user's base
 
 *Why does this test exist? I had some trouble with the encryption module at some point which made files unreadable after
 an upgrade, so I wanted to verify if existing data remained readable after an upgrade.*
+
+### Configuration
+
+Copy the `config/config.sample.py` to `config/config.py`:
+
+```commandline
+cp config/config.sample.py config/config.py
+```
+
+and fill out the `config.py` according to your environment (i.e. Nextcloud path / username / password).
 
 ## Usage
 
@@ -68,6 +94,19 @@ pytest test_webdav.py  # runs certain tests by file (recommended)
 pytest -k <test name>  # runs a certain test by function name; warning: some tests depend on one another
 pytest -k "test_webdav_get_static_file"  # example
 ```
+
+## Alternative way to run: Docker
+
+If you don't want to deal with Python/Pyenv/Packages and/or are more familiar with Docker, you can use the included 
+Docker specs to run the tests.
+
+```commandline
+docker-compose up --build   # build the package, install all dependencies and run the tests
+```
+
+In the `docker-compose.yml` you can modify the `pytest` command to be executed if needed.
+
+You will still need to fill out the `config/config.py` for your environment.
 
 ## Nextcloud bugs
 
