@@ -33,22 +33,21 @@ You will need to test other things manually or using other scripts.
 - Nextcloud (Version >20)
 - Python 3.8.5 (or compatible)
 - Python packages according to requirements.txt
-- pyenv + virtualenv (recommended)
+- pyenv + virtualenv (optional, recommended)
 
-### Pyenv (optional)
+### pyenv + virtualenv (optional)
 
-This step is optional if you wish to use pyenv + virtualenv.
+You only need to do these steps if you wish to use pyenv + virtualenv and have those packages installed.
 
-Install pyenv, then navigate to this directory of the tool and run:
+Navigate to the directory of the tool and run:
 
 ```commandline
 pyenv install
 pyenv virtualenv nextcloud-tests
 pyenv activate 
-
-# Always:
-pip install -r requirements.txt
 ```
+
+Then continue with installing requirements.
 
 ### Install python requirements
 
@@ -56,13 +55,14 @@ pip install -r requirements.txt
 pip install -r requirements.txt
 ```
 
-### Upload testfile
+### Upload testfile to your Nextcloud
 
 The tests also include testing a static test file that is supposed to already be there before the tests start. Please 
 manually upload `test_data/test-textfile.txt` to your Nextcloud test user's base directory.
 
 *Why does this test exist? I had some trouble with the encryption module at some point which made files unreadable after
-an upgrade, so I wanted to verify if existing data remained readable after an upgrade.*
+an upgrade, so I wanted to verify if existing data remained readable after an upgrade. 
+This file is supposed to always stay in the test user's directory so we can check if it remains readable after the upgrade.*
 
 ### Configuration
 
@@ -106,7 +106,7 @@ docker-compose up --build   # build the package, install all dependencies and ru
 
 In the `docker-compose.yml` you can modify the `pytest` command to be executed if needed.
 
-You will still need to fill out the `config/config.py` for your environment.
+You will still need to create and fill out the `config/config.py` as described above.
 
 ## Nextcloud bugs
 
