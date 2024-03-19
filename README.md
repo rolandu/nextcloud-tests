@@ -98,15 +98,26 @@ pytest -k "test_webdav_get_static_file"  # example
 ## Alternative way to run: Docker
 
 If you don't want to deal with Python/Pyenv/Packages and/or are more familiar with Docker, you can use the included 
-Docker specs to run the tests.
+Docker / Docker-Compose specs to run the tests.
+
+When using the container option, you will also need to create and fill out the `config/config.py` as described above.
+
+The config needs to be included as a container volume, it will not be built into the image. 
+
+Example using Docker:
+
+```commandline
+docker build -t nextcloud-tests .
+docker run --rm -v ./config:/app/config nextcloud-tests:latest
+```
+
+Example using Docker-Compose:
 
 ```commandline
 docker-compose up --build   # build the package, install all dependencies and run the tests
 ```
 
 In the `docker-compose.yml` you can modify the `pytest` command to be executed if needed.
-
-You will still need to create and fill out the `config/config.py` as described above.
 
 ## Nextcloud bugs
 
