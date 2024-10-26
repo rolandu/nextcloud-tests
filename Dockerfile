@@ -8,7 +8,13 @@ COPY . /app/
 WORKDIR /app
 
 # Install requirements
-RUN pip install --no-cache-dir -r requirements.txt
+ARG DEBIAN_FRONTEND=noninteractive
+RUN apt-get update \
+    && apt-get install -y gcc \
+    && pip install --no-cache-dir -r requirements.txt \
+    && apt-get remove -y gcc \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Your application's default run command
 CMD ["pytest"]
